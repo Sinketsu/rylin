@@ -1,6 +1,8 @@
 #include <BearLibTerminal.h>
 #include "Player.h"
 #include "Control.h"
+#include "Menu.h"
+
 
 using namespace std;
 
@@ -12,12 +14,21 @@ void init()
     terminal_set("terminal.encoding=1251");
 }
 
+
+
 int main()
 {
     init();
+
+    if (Player::name == "")
+    {
+        start_menu();
+    }
+
     while (true)
     {
         Player::Draw();
+
         terminal_refresh();
         terminal_clear();
         do_action();
