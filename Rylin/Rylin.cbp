@@ -34,6 +34,10 @@
 		</Compiler>
 		<Unit filename="Control.cpp" />
 		<Unit filename="Control.h" />
+		<Unit filename="Menu.cpp" />
+		<Unit filename="Menu.h" />
+		<Unit filename="Panel.cpp" />
+		<Unit filename="Panel.h" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
 		<Unit filename="main.cpp" />
