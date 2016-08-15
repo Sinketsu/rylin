@@ -1,4 +1,3 @@
 # rylin
-Rylin - roguelike RPG on C++ with using libtcod
+Rylin - roguelike RPG on C++ with using bearlibterminal
 
-Nothing
