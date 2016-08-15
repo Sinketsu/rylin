@@ -53,5 +53,10 @@ void do_action()
             Player::Step(1, -1);
             break;
         }
+    case TK_ESCAPE:
+        {
+            terminal_close();
+            break;
+        }
     }
 }
