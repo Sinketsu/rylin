@@ -9,3 +9,9 @@ void Player::Draw()
     terminal_color(0xFFFFFF00);
     terminal_put(Player::pos_x, Player::pos_y, '@');
 }
+
+void Player::Step(int dx, int dy)
+{
+    Player::pos_x += dx;
+    Player::pos_y += dy;
+}
