@@ -1,4 +1,5 @@
 #include <BearLibTerminal.h>
+#include "Player.h"
 
 using namespace std;
 
@@ -13,11 +14,31 @@ void init()
 int main()
 {
     init();
-    terminal_print(1, 1, "Hello!");
-    terminal_print(1, 2, "Привет!");
-    terminal_refresh();
+    Player::pos_x = 10;
+    Player::pos_y = 10;
+    while (true)
+    {
+        Player::Draw();
+        terminal_refresh();
+        terminal_clear();
+        switch (terminal_read())
+        {
+            case TK_RIGHT:
+                Player::pos_x++;
+                break;
+            case TK_LEFT:
+                Player::pos_x--;
+                break;
+            case TK_UP:
+                Player::pos_y--;
+                break;
+            case TK_DOWN:
+                Player::pos_y++;
+                break;
+            case TK_ESCAPE:
+                terminal_close();
+        }
+    }
 
-    while(terminal_read() != TK_ESCAPE);
-    terminal_close();
     return 0;
 }
