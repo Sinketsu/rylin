@@ -1,8 +1,12 @@
 #include <BearLibTerminal.h>
 #include "Player.h"
 
-int Player::pos_x = 1;
-int Player::pos_y = 1;
+int Player::pos_x = -1;
+int Player::pos_y = -1;
+char Player::name[15] = "";
+char Player::race[10] = "";
+char Player::path[10] = "";
+
 
 void Player::Draw()
 {
