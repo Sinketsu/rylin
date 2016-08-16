@@ -69,17 +69,15 @@ void start_menu()
     terminal_print(7, 25, "Здоровье:");
     terminal_print(11, 26, "Воля:");
     terminal_print(8, 27, "Харизма:");
+    terminal_print(7, 28, "Сражение:");
 
     terminal_print(33, 22, "Вода:");
     terminal_print(32, 23, "Огонь:");
     terminal_print(32, 24, "Земля:");
     terminal_print(31, 25, "Воздух:");
-    terminal_print(31, 26, "Музыка:");
-    terminal_print(30, 27, "Иллюзии:");
-    terminal_print(29, 28, "Усиления:");
-    terminal_print(33, 29, "Свет:");
-    terminal_print(33, 30, "Тьма:");
-    terminal_print(29, 31, "Сражение:");
+    terminal_print(33, 26, "Свет:");
+    terminal_print(33, 27, "Тьма:");
+    terminal_print(31, 28, "Другая:");
 
     while (!race)
     {
@@ -94,7 +92,37 @@ void start_menu()
                 terminal_clear_area(6, 20, 170 - 6, 1);
                 terminal_print(6, 20, Race_array[i].Description);
 
+                terminal_clear_area(17, 22, 5, 7);
+                terminal_color(get_color_stat(Race_array[i].Strength));
+                terminal_print(17, 22, get_level_stat(Race_array[i].Strength));
+                terminal_color(get_color_stat(Race_array[i].Agility));
+                terminal_print(17, 23, get_level_stat(Race_array[i].Agility));
+                terminal_color(get_color_stat(Race_array[i].Intellect));
+                terminal_print(17, 24, get_level_stat(Race_array[i].Intellect));
+                terminal_color(get_color_stat(Race_array[i].Stamina));
+                terminal_print(17, 25, get_level_stat(Race_array[i].Stamina));
+                terminal_color(get_color_stat(Race_array[i].Willpower));
+                terminal_print(17, 26, get_level_stat(Race_array[i].Willpower));
+                terminal_color(get_color_stat(Race_array[i].Charm));
+                terminal_print(17, 27, get_level_stat(Race_array[i].Charm));
+                terminal_color(get_color_stat(Race_array[i].Fight));
+                terminal_print(17, 28, get_level_stat(Race_array[i].Fight));
 
+                terminal_clear_area(39, 22, 5, 7);
+                terminal_color(get_color_stat(Race_array[i].Magic_water));
+                terminal_print(39, 22, get_level_stat(Race_array[i].Magic_water));
+                terminal_color(get_color_stat(Race_array[i].Magic_fire));
+                terminal_print(39, 23, get_level_stat(Race_array[i].Magic_fire));
+                terminal_color(get_color_stat(Race_array[i].Magic_earth));
+                terminal_print(39, 24, get_level_stat(Race_array[i].Magic_earth));
+                terminal_color(get_color_stat(Race_array[i].Magic_wind));
+                terminal_print(39, 25, get_level_stat(Race_array[i].Magic_wind));
+                terminal_color(get_color_stat(Race_array[i].Magic_light));
+                terminal_print(39, 26, get_level_stat(Race_array[i].Magic_light));
+                terminal_color(get_color_stat(Race_array[i].Magic_dark));
+                terminal_print(39, 27, get_level_stat(Race_array[i].Magic_dark));
+                terminal_color(get_color_stat(Race_array[i].Magic_other));
+                terminal_print(39, 28, get_level_stat(Race_array[i].Magic_other));
 
 
             } else
