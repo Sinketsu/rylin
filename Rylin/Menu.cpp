@@ -1,6 +1,7 @@
 #include "BearLibTerminal.h"
 #include "Player.h"
 #include "enums/races.cpp"
+#include "enums/colors.cpp"
 
 int selected_race = 0;
 int selected_path = 0;
@@ -9,31 +10,31 @@ bool gender = false, race = false, path = false;
 
 void start_menu()
 {
-    terminal_color(0xFFFF8000);
+    terminal_color(CL_ORANGE);
     terminal_print(1, 1, "Добро пожаловать в мир RYLIN!");
-    terminal_color(0xFF00FFFF);
+    terminal_color(CL_AQUA);
     terminal_print(1, 3, "Создайте своего героя!");
 
     //select gender
     terminal_print(6, 5, "Выберите пол персонажа:");
-    terminal_color(0xFFFFFFFF);
+    terminal_color(CL_WHITE);
 
 
     while (!gender)
     {
         if (selected_gender == 0)
         {
-            terminal_color(0XFFFF8000);
+            terminal_color(CL_ORANGE);
             terminal_print(6, 6, ">Мужской");
-            terminal_color(0XFFFFFFFF);
+            terminal_color(CL_WHITE);
             terminal_print(6, 7, " Женский");
             terminal_refresh();
         }
         else
         {
-            terminal_color(0XFFFFFFFF);
+            terminal_color(CL_WHITE);
             terminal_print(6, 6, " Мужской");
-            terminal_color(0XFFFF8000);
+            terminal_color(CL_ORANGE);
             terminal_print(6, 7, ">Женский");
             terminal_refresh();
         }
@@ -59,9 +60,11 @@ void start_menu()
     }
 
     //select race
-    terminal_color(0xFF00FFFF);
+    terminal_color(CL_AQUA);
     terminal_print(40, 5, "Выберите расу персонажа:");
-    terminal_color(0xFFFFFFFF);
+    terminal_color(CL_WHITE);
+
+    terminal_print(6, 20, "Цвет:");
 
     terminal_print(11, 22, "Сила:");
     terminal_print(7, 23, "Ловкость:");
@@ -85,12 +88,17 @@ void start_menu()
         {
             if (i == selected_race)
             {
-                terminal_color(0XFFFF8000);
+                terminal_color(CL_ORANGE);
                 terminal_put(40, 6 + i, '>');
                 terminal_print(41, 6 + i, Race_array[i].Name);
-                terminal_color(0xFF00FFFF);
-                terminal_clear_area(6, 20, 170 - 6, 1);
-                terminal_print(6, 20, Race_array[i].Description);
+                terminal_color(CL_AQUA);
+                terminal_clear_area(6, 19, 170 - 6, 1);
+                terminal_print(6, 19, Race_array[i].Description);
+
+                terminal_clear_area(12, 20, 1, 1);
+                terminal_color(Race_array[i].color);
+                terminal_put(12, 20, '@');
+
 
                 terminal_clear_area(17, 22, 5, 7);
                 terminal_color(get_color_stat(Race_array[i].Strength));
@@ -127,7 +135,7 @@ void start_menu()
 
             } else
             {
-                terminal_color(0XFFFFFFFF);
+                terminal_color(CL_WHITE);
                 terminal_put(40, 6 + i, ' ');
                 terminal_print(41, 6 + i, Race_array[i].Name);
             }
