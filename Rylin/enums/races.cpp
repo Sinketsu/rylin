@@ -1,3 +1,5 @@
+#include "colors.cpp"
+
 #define COUNT_OF_RACES 10
 
 struct Race
@@ -24,6 +26,7 @@ struct Race
     int8_t Magic_dark; // Магия тьмы
     int8_t Magic_other; // Разная магия
 
+    color_t color;
 };
 
 color_t get_color_stat(int i)
@@ -31,15 +34,15 @@ color_t get_color_stat(int i)
     switch (i)
     {
     case 1:
-        return 0xFFFF0000;
+        return CL_RED;
     case 2:
-        return 0xFFFF8000;
+        return CL_ORANGE;
     case 3:
-        return 0xFFFFFF00;
+        return CL_YELLOW;
     case 4:
-        return 0xFF00FF00;
+        return CL_GREEN;
     case 5:
-        return 0xFF00FFFF;
+        return CL_AQUA;
     }
 }
 
@@ -80,6 +83,7 @@ Race Race_array[COUNT_OF_RACES] =
                 2, // Light
                 1, // Dark
                 2, // Other
+                CL_WHITE
                 },
     {"Кайт-Ши", "Острое зрение и большие шансы поймать животных. Также обладают выделяющейся "\
                 "внешностью - кошачьи уши и хвост.",
@@ -100,6 +104,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 1, // Dark
                 4, // Other
+                CL_YELLOW
                 },
     {"Гномы", "Имеют низкий рост. Мастера магии земли.",
                 4, // Strength
@@ -119,6 +124,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 2, // Dark
                 2, // Other
+                CL_BROWN
                 },
     {"Импы", "Ночная раса.",
                 1, // Strength
@@ -138,6 +144,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 5, // Dark
                 3, // Other
+                CL_VIOLET
                 },
     {"Лепреконы", "Искусные ремесленники.",
                 4, // Strength
@@ -157,6 +164,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 1, // Dark
                 3, // Other
+                CL_GRAY
                 },
     {"Паки", "Раса музыкантов. В бою полагаются в основном на магию звука.",
                 2, // Strength
@@ -176,6 +184,7 @@ Race Race_array[COUNT_OF_RACES] =
                 2, // Light
                 1, // Dark
                 4, // Other
+                CL_GOLD
                 },
     {"Саламандры", "Огненная воинственная раса. Лучше всех владеют магией огня.",
                 5, // Strength
@@ -195,6 +204,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 2, // Dark
                 1, // Other
+                CL_RED
                 },
     {"Спригганы", "Мастера скрытности и обмана. Отлично владеют магией иллюзий.",
                 2, // Strength
@@ -214,6 +224,7 @@ Race Race_array[COUNT_OF_RACES] =
                 2, // Light
                 2, // Dark
                 5, // Other
+                CL_SPRIGGANS
                 },
     {"Сильфы", "Самая быстрая раса.",
                 2, // Strength
@@ -233,6 +244,7 @@ Race Race_array[COUNT_OF_RACES] =
                 1, // Light
                 3, // Dark
                 3, // Other
+                CL_GREEN
                 },
     {"Ундины", "Прекрасные целители и мастера магии воды.",
                 1, // Strength
@@ -252,6 +264,7 @@ Race Race_array[COUNT_OF_RACES] =
                 4, // Light
                 2, // Dark
                 5, // Other
+                CL_AQUA
                 },
 };
 
