@@ -15,6 +15,7 @@ public:
     static char name[20]; //имя персонажа
     static char race[15]; //раса персонажа
     static char path[15]; //класс персонажа
+    static color_t color;
 
     static Stat Str;
     static Stat Agi;

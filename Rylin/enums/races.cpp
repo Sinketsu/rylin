@@ -43,6 +43,8 @@ color_t get_color_stat(int i)
         return CL_GREEN;
     case 5:
         return CL_AQUA;
+    default:
+        return CL_WHITE;
     }
 }
 
@@ -60,6 +62,8 @@ char* get_level_stat(int i)
         return "****";
     case 5:
         return "*****";
+    default:
+        return "";
     }
 }
 
