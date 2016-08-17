@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "enums/races.cpp"
 #include "enums/colors.cpp"
+#include <cstring>
 
 int selected_race = 0;
 int selected_path = 0;
@@ -10,6 +11,9 @@ bool gender = false, race = false, path = false;
 
 void start_menu()
 {
+    char selected_name[20];
+    selected_name[0] = 0;
+
     terminal_color(CL_ORANGE);
     terminal_print(1, 1, "Добро пожаловать в мир RYLIN!");
     terminal_color(CL_AQUA);
@@ -162,9 +166,47 @@ void start_menu()
         }
     }
 
+    //select path
+    terminal_color(CL_AQUA);
+    terminal_print(80, 5, "Выберите путь персонажа:");
+    terminal_color(CL_ORANGE);
+    while (!path)
+    {
+        terminal_print(80, 6, ">PATH");
+        terminal_refresh();
+        switch (terminal_read())
+        {
+        case TK_UP:
+            {
+                if (!(selected_path == 0))
+                    selected_path--;
+                break;
+            }
+        case TK_DOWN:
+            {
+                if (!(selected_path == 0))
+                    selected_path++;
+                break;
+            }
+        case TK_RETURN:
+            {
+                path = true;
+            }
+        }
+    }
 
-    terminal_refresh();
-    while (true);
+    terminal_clear_area(0, 0, 60, 4);
+    terminal_color(CL_AQUA);
+    terminal_print(0, 0, "Введите имя персонажа:");
+    terminal_color(CL_WHITE);
+    if (terminal_read_str(23, 0, selected_name, 19) != TK_INPUT_CANCELLED)
+    {
+        memcpy(Player::name, selected_name, 20);
+        memcpy(Player::race, Race_array[selected_race].Name, 15);
+        memcpy(Player::path, "PATH1\0", 6);
+        Player::color = Race_array[selected_race].color;
+    }
+
 }
 
 
