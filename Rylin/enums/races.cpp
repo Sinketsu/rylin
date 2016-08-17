@@ -1,5 +1,8 @@
 #include "colors.cpp"
 
+#ifndef RACES_INCLUDED
+#define RACES_INCLUDED
+
 #define COUNT_OF_RACES 10
 
 struct Race
@@ -7,29 +10,29 @@ struct Race
     char Name[15];
     char Description[256];
 
-    int8_t Strength; // Сила - наносимый урон в ближнем бою
-    int8_t Agility; // Ловкость - шанс увернуться от атаки в ближнем бою
-    int8_t Intellect; // Инетеллект - наносимый магией урон
-    int8_t Stamina; // Здоровье - количество очков жизни
-    int8_t Willpower; // Сила воли - количество очков маны
-    int8_t Charm; // Харизма(обаяние) - цены на товары
-    int8_t Fight; // Сражение - боевые навыки
-    int8_t Stat1; // Зарезервировано для будущего использования
-    int8_t Stat2; // Зарезервировано для будущего использования
+    int Strength; // Сила - наносимый урон в ближнем бою
+    int Agility; // Ловкость - шанс увернуться от атаки в ближнем бою
+    int Intellect; // Инетеллект - наносимый магией урон
+    int Stamina; // Здоровье - количество очков жизни
+    int Willpower; // Сила воли - количество очков маны
+    int Charm; // Харизма(обаяние) - цены на товары
+    int Fight; // Сражение - боевые навыки
+    int Stat1; // Зарезервировано для будущего использования
+    int Stat2; // Зарезервировано для будущего использования
 
 
-    int8_t Magic_water; // Магия воды
-    int8_t Magic_fire; // Магия огня
-    int8_t Magic_earth; // Магия земли
-    int8_t Magic_wind; // Магия воздуха
-    int8_t Magic_light; // Магия света
-    int8_t Magic_dark; // Магия тьмы
-    int8_t Magic_other; // Разная магия
+    int Magic_water; // Магия воды
+    int Magic_fire; // Магия огня
+    int Magic_earth; // Магия земли
+    int Magic_wind; // Магия воздуха
+    int Magic_light; // Магия света
+    int Magic_dark; // Магия тьмы
+    int Magic_other; // Разная магия
 
-    color_t color;
+    long long color;
 };
 
-color_t get_color_stat(int i)
+long long get_color_stat(int i)
 {
     switch (i)
     {
@@ -272,7 +275,7 @@ Race Race_array[COUNT_OF_RACES] =
                 },
 };
 
-
+#endif
 
 
 

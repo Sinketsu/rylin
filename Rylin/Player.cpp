@@ -1,6 +1,7 @@
 #include <BearLibTerminal.h>
 #include "Player.h"
 #include "enums/colors.cpp"
+#include "Map.h"
 
 int Player::pos_x = -1;
 int Player::pos_y = -1;
