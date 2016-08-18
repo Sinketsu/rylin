@@ -30,11 +30,10 @@ int main()
     {
         Map::Draw_level();
         Player::Draw();
-
         terminal_refresh();
 
-        terminal_clear();
         do_action();
+        terminal_clear();
     }
 
     return 0;

@@ -1,11 +1,12 @@
 #include "Map.h"
 #include "BearLibTerminal.h"
 #include "enums/colors.cpp"
+#include "Player.h"
 #include <fstream>
 
 Tile Map::level[M_WIGHT][M_HEIGTH];
-int Map::Player_posx = 50;
-int Map::Player_posy = 30;
+int Map::Player_posx;
+int Map::Player_posy;
 
 
 bool Map::get_moving_flag(int x, int y)
@@ -59,6 +60,7 @@ void Map::set_discovered_flag(int x, int y, bool state)
 
 int load(char* filename)
 {
+    int x, y;
     std::ifstream fin(filename);
     for (int i = 0; i < M_HEIGTH; i++)
     {
@@ -68,6 +70,10 @@ int load(char* filename)
             fin >> Map::level[k][i].flags;
         }
     }
+    fin >> x;
+    fin >> y;
+    Map::Player_posx = x;
+    Map::Player_posy = y;
     fin.close();
 }
 
