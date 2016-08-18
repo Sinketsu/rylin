@@ -19,6 +19,9 @@ void Player::Draw()
 
 void Player::Step(int dx, int dy)
 {
-    Player::pos_x += dx;
-    Player::pos_y += dy;
+    if (Map::get_moving_flag(Player::pos_x + dx - 170 + M_WIGHT, Player::pos_y + dy - 46 + M_HEIGTH))
+    {
+        Player::pos_x += dx;
+        Player::pos_y += dy;
+    }
 }
