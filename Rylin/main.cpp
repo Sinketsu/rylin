@@ -32,6 +32,7 @@ int main()
         Player::Draw();
 
         terminal_refresh();
+
         terminal_clear();
         do_action();
     }

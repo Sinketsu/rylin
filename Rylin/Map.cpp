@@ -8,18 +8,54 @@ int Map::Player_posx = 50;
 int Map::Player_posy = 30;
 
 
-bool Map::get_moving_stat(char ch)
+bool Map::get_moving_flag(int x, int y)
 {
-    switch (ch)
+    return (Map::level[x][y].flags & 128) == 0 ? false : true;
+}
+
+bool Map::get_fov_visible_flag(int x, int y)
+{
+    return (Map::level[x][y].flags & 32) == 0 ? false : true;
+}
+
+bool Map::get_discovered_flag(int x, int y)
+{
+    return (Map::level[x][y].flags & 64) == 0 ? false : true;
+}
+
+void Map::set_moving_flag(int x, int y, bool state)
+{
+    if (state)
     {
-    case '.':
-        return true;
-    case '#':
-        return false;
-    default:
-        return true;
+        Map::level[x][y].flags |= 128;
+    } else
+    {
+        Map::level[x][y].flags &= !128;
     }
 }
+
+void Map::set_fov_visible_flag(int x, int y, bool state)
+{
+    if (state)
+    {
+        Map::level[x][y].flags |= 32;
+    } else
+    {
+        Map::level[x][y].flags &= !32;
+    }
+}
+
+void Map::set_discovered_flag(int x, int y, bool state)
+{
+    if (state)
+    {
+        Map::level[x][y].flags |= 64;
+    } else
+    {
+        Map::level[x][y].flags &= !64;
+    }
+}
+
 
 int load(char* filename)
 {
@@ -29,7 +65,7 @@ int load(char* filename)
         for (int k = 0; k < M_WIGHT; k++)
         {
             fin >> Map::level[k][i].symbol;
-            Map::level[k][i].can_move = Map::get_moving_stat(Map::level[k][i].symbol);
+            fin >> Map::level[k][i].flags;
         }
     }
     fin.close();
