@@ -3,7 +3,7 @@
 #include "Control.h"
 #include "Menu.h"
 #include "Map.h"
-
+#include "enums/colors.cpp"
 
 using namespace std;
 
@@ -26,12 +26,13 @@ int main()
     Player::pos_x = Map::Player_posx;
     Player::pos_y = Map::Player_posy;
 
+
     while (true)
     {
         Map::Draw_level();
         Player::Draw();
-        terminal_refresh();
 
+        terminal_refresh();
         do_action();
         terminal_clear();
     }

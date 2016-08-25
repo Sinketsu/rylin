@@ -10,13 +10,19 @@ struct Tile
     char flags;
 };
 
+struct Portal
+{
+    int x;
+    int y;
+};
+
 class Map
 {
 public:
     static Tile level[M_WIGHT][M_HEIGTH];
     static int Player_posx;
     static int Player_posy;
-
+    static Portal portal;
 
     static int Load_level(int);
     static void Draw_level();
