@@ -34,6 +34,7 @@ class Map
 public:
     static Tile level[M_WIDTH][M_HEIGHT];
     static Portal portal;
+    static Portal ret_portal;
     static int cur_level;
 
     static void Draw_portal();

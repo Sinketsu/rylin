@@ -24,6 +24,7 @@ bool isExists(char* filePath)
 
 Tile Map::level[M_WIDTH][M_HEIGHT];
 Portal Map::portal;
+Portal Map::ret_portal;
 int Map::cur_level;
 
 bool Map::get_moving_flag(int x, int y)
@@ -123,6 +124,11 @@ int load(char* filename)
     Map::portal.x = x;
     Map::portal.y = y;
 
+    fin >> x;
+    fin >> y;
+    Map::ret_portal.x = x;
+    Map::ret_portal.y = y;
+
     fin.close();
 
 }
@@ -202,13 +208,21 @@ int generate_level(int num)
         }
     }
     fout << std::endl;
+
     fout << V[V.size() - 1].x + V[V.size() - 1].width / 2 + 170 - M_WIDTH;
     fout << ' ';
     fout << V[V.size() - 1].y + V[V.size() - 1].height / 2 + 46 - M_HEIGHT;
     fout << std::endl;
+
     fout << 146 + 170 - M_WIDTH;
     fout << ' ';
     fout << 43 + 46 - M_HEIGHT;
+    fout << std::endl;
+
+    fout << V[V.size() - 1].x + V[V.size() - 1].width / 2 + 170 - M_WIDTH;
+    fout << ' ';
+    fout << V[V.size() - 1].y + V[V.size() - 1].height / 2 + 46 - M_HEIGHT - 1;
+
     fout.close();
 
     load(name);
@@ -245,7 +259,7 @@ int Map::Load_level(int level)
             }
             if ( isExists(name) )
             {
-                load(level);
+                load(name);
             }
             else
             {
@@ -273,5 +287,6 @@ void Map::Draw_portal()
 {
     terminal_color(CL_AQUA);
     terminal_put(Map::portal.x, Map::portal.y, '*');
+    terminal_put(Map::ret_portal.x, Map::ret_portal.y, '*');
 }
 

@@ -23,7 +23,7 @@ void Player::Step(int dx, int dy)
     {
         Player::pos_x += dx;
         Player::pos_y += dy;
-        if ((Player::pos_x == Map::portal.x) && (Player::pos_y == Map::portal.y))
+        if ((Player::pos_x == Map::ret_portal.x) && (Player::pos_y == Map::ret_portal.y))
         {
             Map::Load_level(1);
         }
