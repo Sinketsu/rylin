@@ -124,6 +124,7 @@ int load(char* filename)
     Map::portal.y = y;
 
     fin.close();
+
 }
 
 
@@ -230,14 +231,21 @@ int Map::Load_level(int level)
         }
     default:
         {
+            Map::cur_level = level;
             char name[] = "levels/level00.map";
             char t[2];
             itoa(level, t, 10);
-            name[12] = t[0];
-            name[13] = t[1];
+            if (t[1] == 0)
+            {
+                name[13] = t[0];
+            } else
+            {
+                name[12] = t[0];
+                name[13] = t[1];
+            }
             if ( isExists(name) )
             {
-                generate_level(level);
+                load(level);
             }
             else
             {
