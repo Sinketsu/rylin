@@ -4,6 +4,8 @@
 #include "Player.h"
 #include <fstream>
 #include <cstdlib>
+#include <ctime>
+#include <vector>
 
 
 bool isExists(char* filePath)
@@ -74,7 +76,7 @@ void Map::set_discovered_flag(int x, int y, bool state)
 
 bool is_round(int x, int y)
 {
-    return ((6 - x) * (6 - x) + (6 - y) * (6 - y) > 40) ? false : true;
+    return ((5 - x) * (5 - x) + (5 - y) * (5 - y) > 40) ? false : true;
 }
 
 bool check_room(int x, int y, int w, int h, char arr[M_HEIGHT][M_HEIGHT])
@@ -86,51 +88,16 @@ bool check_room(int x, int y, int w, int h, char arr[M_HEIGHT][M_HEIGHT])
     return true;
 }
 
-int generate_level(int num)
+draw_vertical_line(int y1, int y2, int x, char arr[M_HEIGHT][M_HEIGHT])
 {
-    char arr[M_WIDTH][M_HEIGHT];
-    for (int i = 0; i < M_WIDTH; i++)
-        for (int k = 0; k < M_HEIGHT; k++)
-            arr[i][k] = '#';
+    for (int i = y1; i <= y2; i++)
+        arr[x][i] = '.';
+}
 
-    int x_temp = M_WIDTH - BOSS_ROOM_WIDTH - 1;
-    int y_temp = M_HEIGHT - BOSS_ROOM_HEIGHT - 1;
-    for (int i = x_temp; i < x_temp + BOSS_ROOM_WIDTH; i++)
-        for (int k = y_temp; k < y_temp + BOSS_ROOM_HEIGHT; k++)
-            if (is_round(i - x_temp, k - y_temp))
-                arr[i][k] = '.';
-    arr[147][43] = 'D';
-
-    int w_temp, h_temp;
-    for (int i = 0; i < ROOMS_COUNT; i++)
-    {
-        w_temp = rand() % 6 + 6;
-        h_temp = rand() % 6 + 6;
-        x_temp = rand() % 135 + 1;
-        y_temp = rand() % 30 + 1;
-        while (!check_room(x_temp, y_temp, w_temp, h_temp, arr))
-        {
-            w_temp = rand() % 6 + 6;
-            h_temp = rand() % 6 + 6;
-            x_temp = rand() % 135;
-            y_temp = rand() % 30;
-        }
-
-        for (int k = x_temp; k < x_temp + w_temp; k++)
-            for (int j = y_temp; j < y_temp + h_temp; j++)
-                arr[k][j] = '.';
-    }
-
-    std::ofstream fout("levels/level01.map");
-    for (int k = 0; k < M_HEIGHT; k++)
-    {
-        for (int i = 0; i < M_WIDTH; i++)
-        {
-            fout << arr[i][k];
-        }
-        fout << std::endl;
-    }
-    fout.close();
+draw_horizontal_line(int x1, int x2, int y, char arr[M_HEIGHT][M_HEIGHT])
+{
+    for (int i = x1; i <= x2; i++)
+        arr[i][y] = '.';
 }
 
 int load(char* filename)
@@ -159,6 +126,94 @@ int load(char* filename)
     fin.close();
 }
 
+
+int generate_level(int num)
+{
+    char arr[M_WIDTH][M_HEIGHT];
+    std::vector<Room> V;
+    for (int i = 0; i < M_WIDTH; i++)
+        for (int k = 0; k < M_HEIGHT; k++)
+            arr[i][k] = '#';
+
+
+    int x_temp = M_WIDTH - BOSS_ROOM_WIDTH - 1;
+    int y_temp = M_HEIGHT - BOSS_ROOM_HEIGHT - 1;
+    for (int i = x_temp; i < x_temp + BOSS_ROOM_WIDTH; i++)
+        for (int k = y_temp; k < y_temp + BOSS_ROOM_HEIGHT; k++)
+            if (is_round(i - x_temp, k - y_temp))
+                arr[i][k] = '.';
+    arr[143][43] = 'D';
+
+    V.push_back({x_temp, y_temp, BOSS_ROOM_WIDTH, BOSS_ROOM_HEIGHT});
+
+    srand( time(0) );
+    int w_temp, h_temp;
+    for (int i = 0; i < ROOMS_COUNT; i++)
+    {
+        w_temp = rand() % ROOM_WIDTH_RANGE + MIN_ROOM_WIDTH;
+        h_temp = rand() % ROOM_HEIGHT_RANGE + MIN_ROOM_HEIGHT;
+        x_temp = rand() % 135 + 1;
+        y_temp = rand() % 30 + 1;
+        while (!check_room(x_temp, y_temp, w_temp, h_temp, arr))
+        {
+            w_temp = rand() % ROOM_WIDTH_RANGE + MIN_ROOM_WIDTH;
+            h_temp = rand() % ROOM_HEIGHT_RANGE + MIN_ROOM_HEIGHT;
+            x_temp = rand() % 135 + 1;
+            y_temp = rand() % 30 + 1;
+        }
+
+        for (int k = x_temp; k < x_temp + w_temp; k++)
+            for (int j = y_temp; j < y_temp + h_temp; j++)
+                arr[k][j] = '.';
+
+        V.push_back({x_temp, y_temp, w_temp, h_temp});
+    }
+
+    for (int i = 0; i < V.size() - 1; i++)
+    {
+        draw_horizontal_line( std::min(V[i].x + V[i].width / 2, V[i + 1].x + V[i + 1].width / 2),
+                             std::max(V[i].x + V[i].width / 2, V[i + 1].x + V[i + 1].width / 2),
+                             V[i].y + V[i].height / 2, arr );
+        draw_vertical_line( std::min(V[i].y + V[i].height / 2, V[i + 1].y + V[i + 1].height / 2),
+                             std::max(V[i].y + V[i].height / 2, V[i + 1].y + V[i + 1].height / 2),
+                             V[i + 1].x + V[i + 1].width / 2, arr );
+    }
+
+    char name[] = "levels/level00.map";
+    char num_arr[2];
+    itoa(num, num_arr, 10);
+    if (num_arr[1] == 0)
+    {
+        name[13] = num_arr[0];
+    } else
+    {
+        name[12] = num_arr[0];
+        name[13] = num_arr[1];
+    }
+
+    std::ofstream fout(name);
+    for (int k = 0; k < M_HEIGHT; k++)
+    {
+        for (int i = 0; i < M_WIDTH; i++)
+        {
+            fout << arr[i][k];
+            fout << ((arr[i][k] == '#') ? static_cast<char>(0) : static_cast<char>(128));
+        }
+    }
+    fout << std::endl;
+    fout << V[V.size() - 1].x + V[V.size() - 1].width / 2 + 170 - M_WIDTH;
+    fout << ' ';
+    fout << V[V.size() - 1].y + V[V.size() - 1].height / 2 + 46 - M_HEIGHT;
+    fout << std::endl;
+    fout << 146 + 170 - M_WIDTH;
+    fout << ' ';
+    fout << 43 + 46 - M_HEIGHT;
+    fout.close();
+
+    load(name);
+}
+
+
 int Map::Load_level(int level)
 {
     switch (level)
@@ -182,7 +237,7 @@ int Map::Load_level(int level)
             name[13] = t[1];
             if ( isExists(name) )
             {
-                load(name);
+                generate_level(level);
             }
             else
             {

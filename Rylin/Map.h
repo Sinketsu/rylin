@@ -5,7 +5,11 @@
 #define M_HEIGHT 45
 #define BOSS_ROOM_WIDTH 11
 #define BOSS_ROOM_HEIGHT 11
-#define ROOMS_COUNT 10
+#define ROOMS_COUNT 15
+#define ROOM_WIDTH_RANGE 6
+#define ROOM_HEIGHT_RANGE 6
+#define MIN_ROOM_WIDTH 6
+#define MIN_ROOM_HEIGHT 6
 
 struct Tile
 {
