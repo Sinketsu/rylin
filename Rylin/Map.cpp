@@ -33,8 +33,8 @@ void Map::calculate_sinus()
 */
 void cast_ray(int x1, int y1, int x2, int y2)
 {
-    double X = x1;
-    double Y = y1;
+    double X = x1 + 0.5;
+    double Y = y1 + 0.5;
 
     int iLX = abs(x2 - x1);
     int iLY = abs(y2 - y1);
@@ -48,8 +48,16 @@ void cast_ray(int x1, int y1, int x2, int y2)
     {
         X += dx;
         Y += dy;
-        Map::set_discovered_flag( (int)floor(X), (int)floor(Y), true );
-        Map::set_fov_visible_flag( (int)floor(X), (int)floor(Y), true );
+        if (Map::get_moving_flag((int)floor(X), (int)floor(Y)))
+        {
+            Map::set_discovered_flag( (int)floor(X), (int)floor(Y), true );
+            Map::set_fov_visible_flag( (int)floor(X), (int)floor(Y), true );
+        } else
+        {
+            Map::set_discovered_flag( (int)floor(X), (int)floor(Y), true );
+            Map::set_fov_visible_flag( (int)floor(X), (int)floor(Y), true );
+            break;
+        }
     }
 }
 
