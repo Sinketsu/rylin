@@ -1,8 +1,15 @@
 #ifndef MAP_H_INCLUDED
 #define MAP_H_INCLUDED
 
-#define M_WIGHT 150
-#define M_HEIGTH 45
+#define M_WIDTH 150
+#define M_HEIGHT 45
+#define BOSS_ROOM_WIDTH 11
+#define BOSS_ROOM_HEIGHT 11
+#define ROOMS_COUNT 15
+#define ROOM_WIDTH_RANGE 6
+#define ROOM_HEIGHT_RANGE 6
+#define MIN_ROOM_WIDTH 6
+#define MIN_ROOM_HEIGHT 6
 
 struct Tile
 {
@@ -16,13 +23,21 @@ struct Portal
     int y;
 };
 
+struct Room
+{
+    int x, y;
+    int width, height;
+};
+
 class Map
 {
 public:
-    static Tile level[M_WIGHT][M_HEIGTH];
-    static int Player_posx;
-    static int Player_posy;
+    static Tile level[M_WIDTH][M_HEIGHT];
     static Portal portal;
+    static Portal ret_portal;
+    static int cur_level;
+
+    static void Draw_portal();
 
     static int Load_level(int);
     static void Draw_level();

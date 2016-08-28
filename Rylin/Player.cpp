@@ -3,8 +3,8 @@
 #include "enums/colors.cpp"
 #include "Map.h"
 
-int Player::pos_x = -1;
-int Player::pos_y = -1;
+int Player::pos_x;
+int Player::pos_y;
 char Player::name[20];
 char Player::race[15];
 char Player::path[15];
@@ -19,9 +19,13 @@ void Player::Draw()
 
 void Player::Step(int dx, int dy)
 {
-    if (Map::get_moving_flag(Player::pos_x + dx - 170 + M_WIGHT, Player::pos_y + dy - 46 + M_HEIGTH))
+    if (Map::get_moving_flag(Player::pos_x + dx - 170 + M_WIDTH, Player::pos_y + dy - 46 + M_HEIGHT))
     {
         Player::pos_x += dx;
         Player::pos_y += dy;
+        if ((Player::pos_x == Map::ret_portal.x) && (Player::pos_y == Map::ret_portal.y))
+        {
+            Map::Load_level(1);
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void init()
+__attribute__((always_inline)) void init()
 {
     terminal_open();
     terminal_set("window: title='RYLIN', size=170x50");
@@ -23,13 +23,13 @@ int main()
 
     start_menu();
     Map::Load_level(0);
-    Player::pos_x = Map::Player_posx;
-    Player::pos_y = Map::Player_posy;
+
 
 
     while (true)
     {
         Map::Draw_level();
+        Map::Draw_portal();
         Player::Draw();
 
         terminal_refresh();

@@ -1,6 +1,7 @@
 #include "BearLibTerminal.h"
 #include "Control.h"
 #include "Player.h"
+#include "Map.h"
 
 
 void do_action()
@@ -56,6 +57,14 @@ void do_action()
     case TK_ESCAPE:
         {
             terminal_close();
+            break;
+        }
+    case TK_KP_MULTIPLY:
+        {
+            if ((Player::pos_x == Map::portal.x) && (Player::pos_y == Map::portal.y))
+            {
+                //show choosing level menu
+            }
             break;
         }
     }
