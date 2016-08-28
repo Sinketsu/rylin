@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void init()
+__attribute__((always_inline)) void init()
 {
     terminal_open();
     terminal_set("window: title='RYLIN', size=170x50");
