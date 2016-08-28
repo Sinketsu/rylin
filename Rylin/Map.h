@@ -37,6 +37,11 @@ public:
     static Portal ret_portal;
     static int cur_level;
 
+    static double sinus[72];
+    static double cosinus[72];
+
+    static void Calculate_FOV(int, int);
+
     static void Draw_portal();
 
     static int Load_level(int);
@@ -50,6 +55,9 @@ public:
     static void set_moving_flag(int, int, bool);
     static void set_discovered_flag(int, int, bool);
     static void set_fov_visible_flag(int, int, bool);
+
+    static void calculate_sinus();
+    static void calculate_cosinus();
 };
 
 #endif // MAP_H_INCLUDED

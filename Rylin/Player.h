@@ -12,6 +12,7 @@ class Player
 public:
     static int pos_x;
     static int pos_y;
+    static int FOV_radius;
     static char name[20]; //имя персонажа
     static char race[15]; //раса персонажа
     static char path[15]; //класс персонажа

@@ -5,6 +5,7 @@
 
 int Player::pos_x;
 int Player::pos_y;
+int Player::FOV_radius;
 char Player::name[20];
 char Player::race[15];
 char Player::path[15];
@@ -28,4 +29,5 @@ void Player::Step(int dx, int dy)
             Map::Load_level(1);
         }
     }
+    Map::Calculate_FOV(Player::pos_x, Player::pos_y);
 }
