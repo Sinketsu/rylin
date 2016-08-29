@@ -378,7 +378,7 @@ void Map::Calculate_FOV(int x, int y)
             int ty1 = (int)(y + Player::FOV_radius * Map::sinus[i]);
             cast_ray(x, y, tx1, ty1);
         }
-    if (Player::FOV_radius == 0)
+    if (Player::FOV_radius == 5)
     {
         cast_ray(x, y, x - 4, y - 3);
         cast_ray(x, y, x - 3, y - 4);
