@@ -6,7 +6,60 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <cmath>
 
+
+double Map::sinus[72];
+double Map::cosinus[72];
+
+void Map::calculate_cosinus()
+{
+    for (int i = 0; i <= 71; i++)
+    {
+        Map::cosinus[i] = cos(i * 5 * 3.14 / 180);
+    }
+}
+
+void Map::calculate_sinus()
+{
+    for (int i = 0; i <= 71; i++)
+    {
+        Map::sinus[i] = sin(i * 5 * 3.14 / 180);
+    }
+}
+
+/*
+* Need non-absolute params
+*/
+void cast_ray(int x1, int y1, int x2, int y2)
+{
+    double X = x1 + 0.5;
+    double Y = y1 + 0.5;
+
+    int iLX = abs(x2 - x1);
+    int iLY = abs(y2 - y1);
+
+    int L = std::max(iLX, iLY);
+
+    double dx = (double)(x2 - x1) / L;
+    double dy = (double)(y2 - y1) / L;
+
+    while (L--)
+    {
+        X += dx;
+        Y += dy;
+        if (Map::get_moving_flag((int)floor(X), (int)floor(Y)))
+        {
+            Map::set_discovered_flag( (int)floor(X), (int)floor(Y), true );
+            Map::set_fov_visible_flag( (int)floor(X), (int)floor(Y), true );
+        } else
+        {
+            Map::set_discovered_flag( (int)floor(X), (int)floor(Y), true );
+            Map::set_fov_visible_flag( (int)floor(X), (int)floor(Y), true );
+            break;
+        }
+    }
+}
 
 bool isExists(char* filePath)
 {
@@ -49,19 +102,20 @@ void Map::set_moving_flag(int x, int y, bool state)
         Map::level[x][y].flags |= 128;
     } else
     {
-        Map::level[x][y].flags &= !128;
+        Map::level[x][y].flags &= ~128;
     }
 }
 
 void Map::set_fov_visible_flag(int x, int y, bool state)
 {
-    if (state)
-    {
-        Map::level[x][y].flags |= 32;
-    } else
-    {
-        Map::level[x][y].flags &= !32;
-    }
+    if ( (x < M_WIDTH) && (x > -1) && (y > -1) && (y < M_HEIGHT) )
+        if (state)
+        {
+            Map::level[x][y].flags |= 32;
+        } else
+        {
+            Map::level[x][y].flags &= ~32;
+        }
 }
 
 void Map::set_discovered_flag(int x, int y, bool state)
@@ -71,7 +125,7 @@ void Map::set_discovered_flag(int x, int y, bool state)
         Map::level[x][y].flags |= 64;
     } else
     {
-        Map::level[x][y].flags &= !64;
+        Map::level[x][y].flags &= ~64;
     }
 }
 
@@ -278,7 +332,19 @@ void Map::Draw_level()
     {
         for (int k = 0; k < M_WIDTH; k++)
         {
-            terminal_put(170 - M_WIDTH + k, 50 - M_HEIGHT - 4 + i, Map::level[k][i].symbol);
+            if (Map::get_discovered_flag(k, i))
+            {
+                if (Map::get_fov_visible_flag(k, i))
+                {
+                    terminal_color(CL_WHITE);
+                    terminal_put(170 - M_WIDTH + k, 50 - M_HEIGHT - 4 + i, Map::level[k][i].symbol);
+                } else
+                {
+                    terminal_color(CL_GRAY);
+                    terminal_put(170 - M_WIDTH + k, 50 - M_HEIGHT - 4 + i, Map::level[k][i].symbol);
+                }
+            }
+
         }
     }
 }
@@ -289,4 +355,28 @@ void Map::Draw_portal()
     terminal_put(Map::portal.x, Map::portal.y, '*');
     terminal_put(Map::ret_portal.x, Map::ret_portal.y, '*');
 }
+
+void Map::Calculate_FOV(int x, int y)
+{
+    x = x - 170 + M_WIDTH;
+    y = y - 50 + 4 + M_HEIGHT;
+    for (int i = 0; i <= 71; i++)
+        {
+            int tx1 = (int)(x + Player::FOV_radius * Map::cosinus[i]);
+            int ty1 = (int)(y + Player::FOV_radius * Map::sinus[i]);
+            cast_ray(x, y,
+                     tx1, ty1);
+        }
+}
+
+void Map::Clear_FOV(int x, int y)
+{
+    x = x - 170 + M_WIDTH;
+    y = y - 50 + 4 + M_HEIGHT;
+    for (int i = (y - Player::FOV_radius - 1); i <= (y + Player::FOV_radius + 1); i++)
+        for (int k = (x - Player::FOV_radius - 1); k <= (x + Player::FOV_radius + 1); k++)
+            Map::set_fov_visible_flag(k, i, false);
+}
+
+
 

@@ -20,10 +20,13 @@ __attribute__((always_inline)) void init()
 int main()
 {
     init();
+    Map::calculate_cosinus();
+    Map::calculate_sinus();
 
     start_menu();
-    Map::Load_level(0);
 
+    Map::Load_level(0);
+    Player::FOV_radius = 5;
 
 
     while (true)
