@@ -6,11 +6,20 @@
 int Player::pos_x;
 int Player::pos_y;
 int Player::FOV_radius;
+
+int Player::level;
+int Player::experiance;
 char Player::name[20];
 char Player::race[15];
 char Player::path[15];
 color_t Player::color = CL_WHITE;
 
+Stat Player::Agi;
+Stat Player::Str;
+Stat Player::Int;
+Stat Player::Sta;
+Stat Player::Will;
+Stat Player::Cha;
 
 void Player::Draw()
 {

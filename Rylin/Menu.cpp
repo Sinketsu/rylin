@@ -205,6 +205,16 @@ void start_menu()
         memcpy(Player::race, Race_array[selected_race].Name, 15);
         memcpy(Player::path, "PATH1\0", 6);
         Player::color = Race_array[selected_race].color;
+
+        Player::Agi.current = Player::Agi.normal = Race_array[selected_race].Agility;
+        Player::Str.current = Player::Str.normal = Race_array[selected_race].Strength;
+        Player::Int.current = Player::Int.normal = Race_array[selected_race].Intellect;
+        Player::Sta.current = Player::Sta.normal = Race_array[selected_race].Stamina;
+        Player::Will.current = Player::Will.normal = Race_array[selected_race].Willpower;
+        Player::Cha.current = Player::Cha.normal = Race_array[selected_race].Charm;
+
+        Player::level = 0;
+        Player::experiance = 0;
     }
 
 }

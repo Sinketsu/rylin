@@ -3,6 +3,7 @@
 #include "Control.h"
 #include "Menu.h"
 #include "Map.h"
+#include "Panel.h"
 #include "enums/colors.cpp"
 
 using namespace std;
@@ -27,10 +28,9 @@ int main()
     Player::FOV_radius = 5;
     Map::Load_level(0);
 
-
-
     while (true)
     {
+        Panel::Draw();
         Map::Draw_level();
         Map::Draw_portal();
         Player::Draw();

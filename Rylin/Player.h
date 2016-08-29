@@ -13,6 +13,10 @@ public:
     static int pos_x;
     static int pos_y;
     static int FOV_radius;
+
+    static int level;
+    static int experiance;
+
     static char name[20]; //имя персонажа
     static char race[15]; //раса персонажа
     static char path[15]; //класс персонажа
@@ -20,8 +24,10 @@ public:
 
     static Stat Str;
     static Stat Agi;
-
-
+    static Stat Int;
+    static Stat Sta;
+    static Stat Will;
+    static Stat Cha;
 
     static void Draw();
     static void Step(int, int);
