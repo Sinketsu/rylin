@@ -26,7 +26,7 @@ int main()
     start_menu();
 
     Map::Load_level(0);
-    Player::FOV_radius = 10;
+    Player::FOV_radius = 5;
 
 
     while (true)

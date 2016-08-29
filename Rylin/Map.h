@@ -41,6 +41,7 @@ public:
     static double cosinus[72];
 
     static void Calculate_FOV(int, int);
+    static void Clear_FOV(int, int);
 
     static void Draw_portal();
 

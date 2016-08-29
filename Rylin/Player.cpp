@@ -29,5 +29,7 @@ void Player::Step(int dx, int dy)
             Map::Load_level(1);
         }
     }
+    Map::Clear_FOV(Player::pos_x, Player::pos_y);
     Map::Calculate_FOV(Player::pos_x, Player::pos_y);
+
 }
