@@ -63,7 +63,11 @@ void do_action()
         {
             if ((Player::pos_x == Map::portal.x) && (Player::pos_y == Map::portal.y))
             {
-                //show choosing level menu
+                Map::Load_level(Map::cur_level + 1);
+            }
+            if ((Player::pos_x == Map::ret_portal.x) && (Player::pos_y == Map::ret_portal.y))
+            {
+                Map::Load_level(Map::cur_level + 1);
             }
             break;
         }

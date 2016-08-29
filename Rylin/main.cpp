@@ -24,9 +24,9 @@ int main()
     Map::calculate_sinus();
 
     start_menu();
-
-    Map::Load_level(0);
     Player::FOV_radius = 5;
+    Map::Load_level(0);
+
 
 
     while (true)

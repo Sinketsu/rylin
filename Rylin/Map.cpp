@@ -185,6 +185,9 @@ int load(char* filename)
 
     fin.close();
 
+    Map::Clear_FOV(Player::pos_x, Player::pos_y);
+    Map::Calculate_FOV(Player::pos_x, Player::pos_y);
+
 }
 
 
@@ -352,8 +355,17 @@ void Map::Draw_level()
 void Map::Draw_portal()
 {
     terminal_color(CL_AQUA);
-    terminal_put(Map::portal.x, Map::portal.y, '*');
-    terminal_put(Map::ret_portal.x, Map::ret_portal.y, '*');
+    if (Map::get_discovered_flag(Map::portal.x - 170 + M_WIDTH,
+                                 Map::portal.y - 50 + 4 + M_HEIGHT))
+    {
+        terminal_put(Map::portal.x, Map::portal.y, '*');
+    }
+    if (Map::get_discovered_flag(Map::ret_portal.x - 170 + M_WIDTH,
+                                 Map::ret_portal.y - 50 + 4 + M_HEIGHT))
+    {
+        terminal_put(Map::ret_portal.x, Map::ret_portal.y, '*');
+    }
+
 }
 
 void Map::Calculate_FOV(int x, int y)
@@ -364,9 +376,15 @@ void Map::Calculate_FOV(int x, int y)
         {
             int tx1 = (int)(x + Player::FOV_radius * Map::cosinus[i]);
             int ty1 = (int)(y + Player::FOV_radius * Map::sinus[i]);
-            cast_ray(x, y,
-                     tx1, ty1);
+            cast_ray(x, y, tx1, ty1);
         }
+    if (Player::FOV_radius == 0)
+    {
+        cast_ray(x, y, x - 4, y - 3);
+        cast_ray(x, y, x - 3, y - 4);
+        cast_ray(x, y, x + 3, y - 3);
+        cast_ray(x, y, x - 3, y + 3);
+    }
 }
 
 void Map::Clear_FOV(int x, int y)
