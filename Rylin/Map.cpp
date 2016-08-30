@@ -326,6 +326,7 @@ int Map::Load_level(int level)
             break;
         }
     }
+    return 0;
 }
 
 void Map::Draw_level()

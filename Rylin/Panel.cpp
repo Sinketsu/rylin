@@ -41,7 +41,7 @@ void Panel::Draw()
     terminal_print(12, 6, s.c_str());
 
     /*
-    * Вытаскивание золота из инвенторя
+    * u???? ?? ????
     */
     terminal_print(12, 7, "500");
 
