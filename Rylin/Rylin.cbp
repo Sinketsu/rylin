@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="Control.cpp" />
 		<Unit filename="Control.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
 		<Unit filename="Map.cpp" />
 		<Unit filename="Map.h" />
 		<Unit filename="Menu.cpp" />
