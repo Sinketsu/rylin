@@ -11,13 +11,13 @@
 #define MIN_ROOM_WIDTH 6
 #define MIN_ROOM_HEIGHT 6
 
-#include "Enemy.h"
+//#include "Enemy.h"
 
 struct Tile
 {
     char symbol;
     char flags;
-    Monster* monster;
+    //Monster* monster;
 };
 
 struct Portal

@@ -283,6 +283,7 @@ int generate_level(int num)
     fout.close();
 
     load(name);
+    return 0;
 }
 
 

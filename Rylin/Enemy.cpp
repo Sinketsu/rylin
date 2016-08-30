@@ -1,5 +1,6 @@
-#include "Enemy.h"
 #include "Map.h"
+#include "Enemy.h"
+
 #include <cstring>
 
 Monster::Monster(Monster_info mi, int x, int y)
